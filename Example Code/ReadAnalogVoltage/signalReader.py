@@ -18,17 +18,22 @@ startTime = time.time()
 x_vals = []
 sensorValue1_data = []
 sensorValue2_data = []
+sensorValue3_data = []
+sensorValue4_data = []
 
 # Create a function to read and process data from Arduino
 def read_and_process_data():
     line = ser.readline().decode('utf-8').strip()
     sensorValues = line.split(' ')
+    print(sensorValues)
     x_vals.append(time.time() - startTime)
     sensorValue1_data.append(sensorValues[0])
     sensorValue2_data.append(sensorValues[1])
+    sensorValue3_data.append(sensorValues[2])
+    sensorValue4_data.append(sensorValues[3])
 
     # Print the received values
-    print(f'Time : {x_vals[0]} Sensor 1: {sensorValues[0]}, Sensor 2: {sensorValues[1]}')
+    print(f'Time : {x_vals[0]} Sensor 1: {sensorValues[0]}, Sensor 2: {sensorValues[1]}, Sensor 3: {sensorValues[2]}, Sensor 4: {sensorValues[3]}')
 
 # Create a function to update the plot
 def update_plot(frame):
@@ -36,6 +41,8 @@ def update_plot(frame):
     plt.cla()
     plt.plot(x_vals, sensorValue1_data, label='Sensor 1')
     plt.plot(x_vals, sensorValue2_data, label='Sensor 2')
+    plt.plot(x_vals, sensorValue3_data, label='Sensor 3')
+    plt.plot(x_vals, sensorValue4_data, label="Sensor 4")
     plt.xlabel('Time')
     plt.ylabel('Sensor Values')
     plt.legend()
@@ -44,9 +51,9 @@ def update_plot(frame):
 def on_close(event):
     with open('arduino_data.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['Time', 'Sensor1', 'Sensor2'])
-        for x, s1, s2 in zip(x_vals, sensorValue1_data, sensorValue2_data):
-            writer.writerow([x, s1, s2])
+        writer.writerow(['Time', 'Sensor1', 'Sensor2', 'Sensor3', 'Sensor4'])
+        for x, s1, s2, s3, s4 in zip(x_vals, sensorValue1_data, sensorValue2_data, sensorValue3_data, sensorValue4_data):
+            writer.writerow([x, s1, s2, s3, s4])
 
 # Register the callback function for when the plot window is closed
 fig, ax = plt.subplots()
