@@ -1,89 +1,107 @@
-/* Copyright (C) 2012-2017 Ultraleap Limited. All rights reserved.
- *
- * Use of this code is subject to the terms of the Ultraleap SDK agreement
- * available at https://central.leapmotion.com/agreements/SdkAgreement unless
- * Ultraleap has signed a separate license agreement with you or your
- * organisation.
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 #ifdef _WIN32
-#include <Windows.h>
+#include <windows.h>
 #else
 #include <unistd.h>
+#include <fcntl.h>
+#include <termios.h>
 #endif
 
-#include <time.h>
 #include "LeapC.h"
 #include "ExampleConnection.h"
 
 LEAP_CLOCK_REBASER clockSynchronizer;
 
+double x_vals[1000];
+int sensorValue1_data[1000];
+int sensorValue2_data[1000];
+int sensorValue3_data[1000];
+int sensorValue4_data[1000];
+int data_count = 0;
+time_t startTime;
+
+#ifdef _WIN32
+HANDLE serial_port;
+#else
+int serial_port;
+#endif
+
+// Function prototypes
+int setup_serial_connection();
+int read_and_process_data(FILE *ser);
+
 int main(int argc, char** argv) {
-  LEAP_CONNECTION* connHandle = OpenConnection();
+    LEAP_CONNECTION* connHandle = OpenConnection();
+    FILE *fp;
+    fp = fopen("handData.csv", "w");
 
-  FILE *fp;
-  fp = fopen("handData.csv", "w");
+    FILE *ser;
+    ser = fopen("Arduino_Data.csv", "w");
+    if (!ser) {
+        fprintf(stderr, "Error opening Arduino_Data.csv\n");
+        return 1;
+    }
 
-  while(!IsConnected){
-    millisleep(250);
-  }
+    if (setup_serial_connection() != 0) {
+        fprintf(stderr, "Error setting up serial connection\n");
+        fclose(fp);
+        fclose(ser);
+        return 1;
+    }
 
-  printf("Connected.\n");
-  //Create the clock synchronizer
-  LeapCreateClockRebaser(&clockSynchronizer);
-  clock_t cpuTime;
-  int64_t targetFrameTime = 0;
-  uint64_t targetFrameSize = 0;
-  eLeapRS result;
+    while(!IsConnected){
+        #ifdef _WIN32
+        Sleep(250);
+        #else
+        usleep(250000);
+        #endif
+    }
 
-  fprintf(fp,"Timestamp|Palm|ThumbStart|ThumbMid|ThumbEnd|IndexStart|IndexMid1|IndexMid2|IndexEnd|MiddleStart|MiddleMid1|MiddleMid2|MiddleEnd|RingStart|RingMid1|RingMid2|RingEnd|PinkyStart|PinkyMid1|PinkyMid2|PinkyEnd|Arm SecondHand --> \n");
-  
-  for(;;){
-    //Calculate the application time
-    cpuTime = (clock_t).000001 * clock()/CLOCKS_PER_SEC;//microseconds
-    //Synchronize the clocks
-    LeapUpdateRebase(clockSynchronizer, cpuTime, LeapGetNow());
+    printf("Connected.\n");
+    LeapCreateClockRebaser(&clockSynchronizer);
+    clock_t cpuTime;
+    int64_t targetFrameTime = 0;
+    uint64_t targetFrameSize = 0;
+    eLeapRS result;
 
-    //Simulate delay (i.e. processing load, v-sync, etc)
-    millisleep(10);
+    fprintf(fp,"Timestamp|Palm|ThumbStart|ThumbMid|ThumbEnd|IndexStart|IndexMid1|IndexMid2|IndexEnd|MiddleStart|MiddleMid1|MiddleMid2|MiddleEnd|RingStart|RingMid1|RingMid2|RingEnd|PinkyStart|PinkyMid1|PinkyMid2|PinkyEnd|Arm SecondHand --> \n");
 
-    //Now get the updated application time
-    cpuTime = (clock_t) .000001 * clock()/CLOCKS_PER_SEC;
-
-    //Translate application time to Leap time
-    LeapRebaseClock(clockSynchronizer, cpuTime, &targetFrameTime);
-
-    //Get the buffer size needed to hold the tracking data
-    result = LeapGetFrameSize(*connHandle, targetFrameTime, &targetFrameSize);
-    if(result == eLeapRS_Success){
-      //Allocate enough memory
-      LEAP_TRACKING_EVENT* interpolatedFrame = malloc((size_t)targetFrameSize);
-      //Get the frame
-      result = LeapInterpolateFrame(*connHandle, targetFrameTime, interpolatedFrame, targetFrameSize);
-      if(result == eLeapRS_Success){
-        //Use the data...
-        exportHand(interpolatedFrame,fp);
+    for (;;) {
+        cpuTime = (clock_t).000001 * clock() / CLOCKS_PER_SEC;
+        LeapUpdateRebase(clockSynchronizer, cpuTime, LeapGetNow());
+        #ifdef _WIN32
+        Sleep(10);
+        #else
+        usleep(10000);
+        #endif
+        cpuTime = (clock_t).000001 * clock() / CLOCKS_PER_SEC;
+        LeapRebaseClock(clockSynchronizer, cpuTime, &targetFrameTime);
+        result = LeapGetFrameSize(*connHandle, targetFrameTime, &targetFrameSize);
         
-        //Free the allocated buffer when done.
-        free(interpolatedFrame);
-      }
-      else {
-        printf("LeapInterpolateFrame() result was %s.\n", ResultString(result));
-      }
-    }
-    else {
-      printf("LeapGetFrameSize() result was %s.\n", ResultString(result));
-    }
-  } //ctrl-c to exit
+        if (result == eLeapRS_Success) {
+            LEAP_TRACKING_EVENT* interpolatedFrame = malloc((size_t)targetFrameSize);
+            result = LeapInterpolateFrame(*connHandle, targetFrameTime, interpolatedFrame, targetFrameSize);
+            if (result == eLeapRS_Success) {
+                exportHand(interpolatedFrame, fp);
+                free(interpolatedFrame);
+            } else {
+                printf("LeapInterpolateFrame() result was %s.\n", ResultString(result));
+            }
+        } else {
+            printf("LeapGetFrameSize() result was %s.\n", ResultString(result));
+        }
 
-  fclose(fp);
-  return 0;
+        // read_and_process_data(ser);
+    }
+
+    fclose(fp);
+    fclose(ser);
+    return 0;
 }
-
 
 int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp) {
 
@@ -125,4 +143,72 @@ int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp) {
   }
   fprintf(fp,"\n");
   return 0;
+}
+
+int setup_serial_connection() {
+    #ifdef _WIN32
+    serial_port = CreateFile("\\\\.\\COM5", GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
+    if (serial_port == INVALID_HANDLE_VALUE) {
+        fprintf(stderr, "Error opening COM port\n");
+        return -1;
+    }
+    DCB dcbSerialParams = {0};
+    dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
+    dcbSerialParams.BaudRate = CBR_9600;
+    dcbSerialParams.ByteSize = 8;
+    dcbSerialParams.StopBits = ONESTOPBIT;
+    dcbSerialParams.Parity = NOPARITY;
+    SetCommState(serial_port, &dcbSerialParams);
+    #else
+    serial_port = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);
+    if (serial_port < 0) {
+        perror("Error opening serial port");
+        return -1;
+    }
+    struct termios tty;
+    tcgetattr(serial_port, &tty);
+    cfsetispeed(&tty, B9600);
+    cfsetospeed(&tty, B9600);
+    tty.c_cflag |= (CLOCAL | CREAD);
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag |= CS8;
+    tty.c_cflag &= ~PARENB;
+    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~CRTSCTS;
+    tcsetattr(serial_port, TCSANOW, &tty);
+    #endif
+    return 0;
+}
+
+int read_and_process_data(FILE *ser) {
+    char line[256];
+    #ifdef _WIN32
+    DWORD bytes_read;
+    ReadFile(serial_port, line, sizeof(line) - 1, &bytes_read, NULL);
+    line[bytes_read] = '\0';
+    #else
+    int n = read(serial_port, line, sizeof(line) - 1);
+    if (n < 0) return -1;
+    line[n] = '\0';
+    #endif
+
+    int sensorValues[4];
+    int i = 0;
+    char *token = strtok(line, " ");
+    while (token != NULL && i < 4) {
+        sensorValues[i++] = atoi(token);
+        token = strtok(NULL, " ");
+    }
+
+    time_t currentTime = time(NULL);
+    x_vals[data_count] = difftime(currentTime, startTime);
+    sensorValue1_data[data_count] = sensorValues[0];
+    sensorValue2_data[data_count] = sensorValues[1];
+    sensorValue3_data[data_count] = sensorValues[2];
+    sensorValue4_data[data_count] = sensorValues[3];
+    data_count++;
+
+    fprintf(ser, "%.2f,%d,%d,%d,%d\n",
+           x_vals[data_count - 1], sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3]);
+    return 0;
 }
