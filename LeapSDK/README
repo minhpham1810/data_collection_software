@@ -1,0 +1,11 @@
+To run files:
+
+Download and install cmake
+
+Within the "files" directory in terminal, do:
+    mkdir build
+    cd build 
+    cmake ..
+    cmake --build .
+
+One way to run files after that is to go to the Debug folder within build and run the .exe of the file

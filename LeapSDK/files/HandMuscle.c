@@ -5,22 +5,26 @@
 
 #ifdef _WIN32
 #include <windows.h>
+DWORD WINAPI handle_ultraleap_data(LPVOID arg);
+DWORD WINAPI handle_arduino_data(LPVOID arg);
 #else
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
+#include <pthread.h>
+void* handle_ultraleap_data(void* arg);
+void* handle_arduino_data(void* arg);
 #endif
 
 #include "LeapC.h"
 #include "ExampleConnection.h"
 
+//Global variables for Ultraleap
 LEAP_CLOCK_REBASER clockSynchronizer;
 
+//Global variables for Muscle Sensors
 double x_vals[1000];
-int sensorValue1_data[1000];
-int sensorValue2_data[1000];
-int sensorValue3_data[1000];
-int sensorValue4_data[1000];
+int sensorValue1_data[1000], sensorValue2_data[1000], sensorValue3_data[1000], sensorValue4_data[1000];
 int data_count = 0;
 time_t startTime;
 
@@ -30,22 +34,21 @@ HANDLE serial_port;
 int serial_port;
 #endif
 
-// Function prototypes
-int setup_serial_connection();
-int read_and_process_data(FILE *ser);
+// File pointers for data storage
+FILE *fp;
+FILE *ser;
 
+// Main function - creates threads and opens files
 int main(int argc, char** argv) {
-    LEAP_CONNECTION* connHandle = OpenConnection();
-    FILE *fp;
+    // Open files
     fp = fopen("handData.csv", "w");
-
-    FILE *ser;
     ser = fopen("Arduino_Data.csv", "w");
-    if (!ser) {
-        fprintf(stderr, "Error opening Arduino_Data.csv\n");
+    if (!fp || !ser) {
+        fprintf(stderr, "Error opening data files.\n");
         return 1;
     }
 
+    // Setup serial connection to Arduino
     if (setup_serial_connection() != 0) {
         fprintf(stderr, "Error setting up serial connection\n");
         fclose(fp);
@@ -53,15 +56,38 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    while(!IsConnected){
-        #ifdef _WIN32
-        Sleep(250);
-        #else
-        usleep(250000);
-        #endif
-    }
+    // Create Threads
+#ifdef _WIN32
+    HANDLE ultraleap_thread = CreateThread(NULL, 0, handle_ultraleap_data, NULL, 0, NULL);
+    HANDLE arduino_thread = CreateThread(NULL, 0, handle_arduino_data, NULL, 0, NULL);
 
-    printf("Connected.\n");
+    WaitForSingleObject(ultraleap_thread, INFINITE);
+    WaitForSingleObject(arduino_thread, INFINITE);
+
+    CloseHandle(ultraleap_thread);
+    CloseHandle(arduino_thread);
+#else
+    pthread_t ultraleap_thread, arduino_thread;
+    pthread_create(&ultraleap_thread, NULL, handle_ultraleap_data, NULL);
+    pthread_create(&arduino_thread, NULL, handle_arduino_data, NULL);
+    pthread_join(ultraleap_thread, NULL);
+    pthread_join(arduino_thread, NULL);
+#endif
+
+    fclose(fp);
+    fclose(ser);
+    return 0;
+}
+
+// Thread function for handling Ultraleap data
+#ifdef _WIN32
+DWORD WINAPI handle_ultraleap_data(LPVOID arg) {
+#else
+void* handle_ultraleap_data(void* arg) {
+#endif
+    
+    LEAP_CONNECTION* connHandle = OpenConnection();
+    
     LeapCreateClockRebaser(&clockSynchronizer);
     clock_t cpuTime;
     int64_t targetFrameTime = 0;
@@ -86,23 +112,47 @@ int main(int argc, char** argv) {
             LEAP_TRACKING_EVENT* interpolatedFrame = malloc((size_t)targetFrameSize);
             result = LeapInterpolateFrame(*connHandle, targetFrameTime, interpolatedFrame, targetFrameSize);
             if (result == eLeapRS_Success) {
+
+                //Print Hand Data
                 exportHand(interpolatedFrame, fp);
                 free(interpolatedFrame);
+                
             } else {
                 printf("LeapInterpolateFrame() result was %s.\n", ResultString(result));
             }
         } else {
             printf("LeapGetFrameSize() result was %s.\n", ResultString(result));
         }
-
-        // read_and_process_data(ser);
+        
+        
     }
 
     fclose(fp);
-    fclose(ser);
     return 0;
 }
 
+// Thread function for handling Arduino data
+#ifdef _WIN32
+DWORD WINAPI handle_arduino_data(LPVOID arg) {
+#else
+void* handle_arduino_data(void* arg) {
+#endif
+    for (;;) {
+        read_and_process_data(ser);
+// #ifdef _WIN32
+//         Sleep(100);
+// #else
+//         usleep(100000);
+// #endif
+    }
+#ifdef _WIN32
+    return 0;
+#else
+    return NULL;
+#endif
+}
+
+// Export hand data to CSV
 int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp) {
 
   // Timestamp
@@ -147,9 +197,9 @@ int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp) {
 
 int setup_serial_connection() {
     #ifdef _WIN32
-    serial_port = CreateFile("\\\\.\\COM5", GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
+    serial_port = CreateFile("\\\\.\\COM3", GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
     if (serial_port == INVALID_HANDLE_VALUE) {
-        fprintf(stderr, "Error opening COM port\n");
+        fprintf(stderr, "Error opening COM port; check port number\n");
         return -1;
     }
     DCB dcbSerialParams = {0};

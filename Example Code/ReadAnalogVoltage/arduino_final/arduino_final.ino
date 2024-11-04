@@ -26,5 +26,5 @@ void loop() {
   //Serial.print(sensorValue3);
   //Serial.print(" ");
   //Serial.println(sensorValue4);
-  delay(100);        // delay in between reads for stability
+  //delay(100);        // delay in between reads for stability
 }
