@@ -26,7 +26,6 @@ LEAP_CLOCK_REBASER clockSynchronizer;
 double x_vals[1000];
 int sensorValue1_data[1000], sensorValue2_data[1000], sensorValue3_data[1000], sensorValue4_data[1000];
 int data_count = 0;
-time_t startTime;
 
 #ifdef _WIN32
 HANDLE serial_port;
@@ -40,6 +39,7 @@ FILE *ser;
 
 // Main function - creates threads and opens files
 int main(int argc, char** argv) {
+
     // Open files
     fp = fopen("handData.csv", "w");
     ser = fopen("Arduino_Data.csv", "w");
@@ -85,10 +85,13 @@ DWORD WINAPI handle_ultraleap_data(LPVOID arg) {
 #else
 void* handle_ultraleap_data(void* arg) {
 #endif
-    
+
     LEAP_CONNECTION* connHandle = OpenConnection();
     
     LeapCreateClockRebaser(&clockSynchronizer);
+    //start clock
+    clock_t startTime = clock();
+
     clock_t cpuTime;
     int64_t targetFrameTime = 0;
     uint64_t targetFrameSize = 0;
@@ -113,8 +116,10 @@ void* handle_ultraleap_data(void* arg) {
             result = LeapInterpolateFrame(*connHandle, targetFrameTime, interpolatedFrame, targetFrameSize);
             if (result == eLeapRS_Success) {
 
-                //Print Hand Data
-                exportHand(interpolatedFrame, fp);
+                //Print Hand Data if we have it
+                if (interpolatedFrame->nHands > 0) {
+                    exportHand(interpolatedFrame, fp, startTime);
+                }
                 free(interpolatedFrame);
                 
             } else {
@@ -137,8 +142,11 @@ DWORD WINAPI handle_arduino_data(LPVOID arg) {
 #else
 void* handle_arduino_data(void* arg) {
 #endif
+    //start clock
+    clock_t startTime = clock();
+
     for (;;) {
-        read_and_process_data(ser);
+        read_and_process_data(ser,startTime);
 // #ifdef _WIN32
 //         Sleep(100);
 // #else
@@ -153,11 +161,12 @@ void* handle_arduino_data(void* arg) {
 }
 
 // Export hand data to CSV
-int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp) {
+int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp,clock_t startTime) {
 
+  clock_t nowTime = clock();  
   // Timestamp
   // can also use LeapGetNow()
-  fprintf(fp,"%lli",frame->info.timestamp);
+  fprintf(fp,"%f",(double)(nowTime - startTime) / CLOCKS_PER_SEC);
   
   LEAP_HAND hand;
   LEAP_PALM palm;
@@ -230,7 +239,9 @@ int setup_serial_connection() {
     return 0;
 }
 
-int read_and_process_data(FILE *ser) {
+int read_and_process_data(FILE *ser,clock_t startTime) {
+
+    clock_t nowTime = clock();  
     char line[256];
     #ifdef _WIN32
     DWORD bytes_read;
@@ -249,9 +260,7 @@ int read_and_process_data(FILE *ser) {
         sensorValues[i++] = atoi(token);
         token = strtok(NULL, " ");
     }
-
-    time_t currentTime = time(NULL);
-    x_vals[data_count] = difftime(currentTime, startTime);
+    x_vals[data_count] = (double)(nowTime - startTime) / CLOCKS_PER_SEC;
     sensorValue1_data[data_count] = sensorValues[0];
     sensorValue2_data[data_count] = sensorValues[1];
     sensorValue3_data[data_count] = sensorValues[2];
