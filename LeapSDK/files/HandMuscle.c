@@ -5,27 +5,20 @@
 
 #ifdef _WIN32
 #include <windows.h>
-DWORD WINAPI handle_ultraleap_data(LPVOID arg);
-DWORD WINAPI handle_arduino_data(LPVOID arg);
 #else
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
-#include <pthread.h>
-void* handle_ultraleap_data(void* arg);
-void* handle_arduino_data(void* arg);
 #endif
 
-#include "LeapC.h"
-#include "ExampleConnection.h"
+#define NUM_CHANNELS 8
+#define ADC_MAX 1023.0
+#define VREF 5.0
+#define ADC_TO_MILLIVOLTS(x) (((x) / ADC_MAX) * (VREF * 1000.0))
 
-//Global variables for Ultraleap
-LEAP_CLOCK_REBASER clockSynchronizer;
-
-//Global variables for Muscle Sensors
-double x_vals[1000];
-int sensorValue1_data[1000], sensorValue2_data[1000], sensorValue3_data[1000], sensorValue4_data[1000];
-int data_count = 0;
+// Global variables
+double sensorData[NUM_CHANNELS]; // Holds the latest sensor values
+FILE *csvFile;                   // File pointer
 
 #ifdef _WIN32
 HANDLE serial_port;
@@ -33,197 +26,28 @@ HANDLE serial_port;
 int serial_port;
 #endif
 
-// File pointers for data storage
-FILE *fp;
-FILE *ser;
+// Function to set up serial communication
+int setup_serial_connection()
+{
+    char portName[256];
 
-// Main function - creates threads and opens files
-int main(int argc, char** argv) {
-
-    // Open files
-    fp = fopen("handData.csv", "w");
-    ser = fopen("Arduino_Data.csv", "w");
-    if (!fp || !ser) {
-        fprintf(stderr, "Error opening data files.\n");
-        return 1;
-    }
-
-    // Setup serial connection to Arduino
-    if (setup_serial_connection() != 0) {
-        fprintf(stderr, "Error setting up serial connection\n");
-        fclose(fp);
-        fclose(ser);
-        return 1;
-    }
-
-    // Create Threads
 #ifdef _WIN32
-    HANDLE ultraleap_thread = CreateThread(NULL, 0, handle_ultraleap_data, NULL, 0, NULL);
-    HANDLE arduino_thread = CreateThread(NULL, 0, handle_arduino_data, NULL, 0, NULL);
-
-    WaitForSingleObject(ultraleap_thread, INFINITE);
-    WaitForSingleObject(arduino_thread, INFINITE);
-
-    CloseHandle(ultraleap_thread);
-    CloseHandle(arduino_thread);
-#else
-    pthread_t ultraleap_thread, arduino_thread;
-    pthread_create(&ultraleap_thread, NULL, handle_ultraleap_data, NULL);
-    pthread_create(&arduino_thread, NULL, handle_arduino_data, NULL);
-    pthread_join(ultraleap_thread, NULL);
-    pthread_join(arduino_thread, NULL);
-#endif
-
-    fclose(fp);
-    fclose(ser);
-    return 0;
-}
-
-// Thread function for handling Ultraleap data
-#ifdef _WIN32
-DWORD WINAPI handle_ultraleap_data(LPVOID arg) {
-#else
-void* handle_ultraleap_data(void* arg) {
-#endif
-
-    LEAP_CONNECTION* connHandle = OpenConnection();
-    
-    LeapCreateClockRebaser(&clockSynchronizer);
-    //start clock
-    clock_t startTime = clock();
-
-    clock_t cpuTime;
-    int64_t targetFrameTime = 0;
-    uint64_t targetFrameSize = 0;
-    eLeapRS result;
-
-    fprintf(fp,"Timestamp|Palm|ThumbStart|ThumbMid|ThumbEnd|IndexStart|IndexMid1|IndexMid2|IndexEnd|MiddleStart|MiddleMid1|MiddleMid2|MiddleEnd|RingStart|RingMid1|RingMid2|RingEnd|PinkyStart|PinkyMid1|PinkyMid2|PinkyEnd|Arm SecondHand --> \n");
-
-    for (;;) {
-        cpuTime = (clock_t).000001 * clock() / CLOCKS_PER_SEC;
-        LeapUpdateRebase(clockSynchronizer, cpuTime, LeapGetNow());
-        #ifdef _WIN32
-        Sleep(10);
-        #else
-        usleep(10000);
-        #endif
-        cpuTime = (clock_t).000001 * clock() / CLOCKS_PER_SEC;
-        LeapRebaseClock(clockSynchronizer, cpuTime, &targetFrameTime);
-        result = LeapGetFrameSize(*connHandle, targetFrameTime, &targetFrameSize);
-        
-        if (result == eLeapRS_Success) {
-            LEAP_TRACKING_EVENT* interpolatedFrame = malloc((size_t)targetFrameSize);
-            result = LeapInterpolateFrame(*connHandle, targetFrameTime, interpolatedFrame, targetFrameSize);
-            if (result == eLeapRS_Success) {
-
-                //Print Hand Data if we have it
-                if (interpolatedFrame->nHands > 0) {
-                    exportHand(interpolatedFrame, fp, startTime);
-                }
-                free(interpolatedFrame);
-                
-            } else {
-                printf("LeapInterpolateFrame() result was %s.\n", ResultString(result));
-            }
-        } else {
-            printf("LeapGetFrameSize() result was %s.\n", ResultString(result));
-        }
-        
-        
-    }
-
-    fclose(fp);
-    return 0;
-}
-
-// Thread function for handling Arduino data
-#ifdef _WIN32
-DWORD WINAPI handle_arduino_data(LPVOID arg) {
-#else
-void* handle_arduino_data(void* arg) {
-#endif
-    //start clock
-    clock_t startTime = clock();
-
-    for (;;) {
-        read_and_process_data(ser,startTime);
-// #ifdef _WIN32
-//         Sleep(100);
-// #else
-//         usleep(100000);
-// #endif
-    }
-#ifdef _WIN32
-    return 0;
-#else
-    return NULL;
-#endif
-}
-
-// Export hand data to CSV
-int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp,clock_t startTime) {
-
-  clock_t nowTime = clock();  
-  // Timestamp
-  // can also use LeapGetNow()
-  fprintf(fp,"%f",(double)(nowTime - startTime) / CLOCKS_PER_SEC);
-  
-  LEAP_HAND hand;
-  LEAP_PALM palm;
-  LEAP_DIGIT finger;
-  LEAP_BONE arm;
-  // Both hands
-  for(uint32_t h = 0; h < frame->nHands; h++){
-    
-    hand = frame->pHands[h];
-
-    // Palm
-    palm = hand.palm;
-    fprintf(fp,"|[%f,%f,%f]",hand.palm.position.x,palm.position.y,palm.position.z);
-
-    // Fingers
-    for (uint32_t i = 0; i < 5; i++) {
-      finger = hand.digits[i];
-
-      // iterate through every bone
-      for (uint32_t j = 0; j < 4; j++) {
-        fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f]]",
-                      finger.bones[j].prev_joint.x,finger.bones[j].next_joint.x,
-                      finger.bones[j].prev_joint.y,finger.bones[j].next_joint.y,
-                      finger.bones[j].prev_joint.z,finger.bones[j].next_joint.z
-                );
-      }
-    }
-
-    // Arm
-    arm = hand.arm;
-    fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f]]",arm.prev_joint.x,arm.prev_joint.y,arm.prev_joint.z,
-                                        arm.next_joint.x,arm.next_joint.y,arm.next_joint.z);
-  }
-  fprintf(fp,"\n");
-  return 0;
-}
-
-int setup_serial_connection() {
-    #ifdef _WIN32
-    serial_port = CreateFile("\\\\.\\COM3", GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
-    if (serial_port == INVALID_HANDLE_VALUE) {
-        fprintf(stderr, "Error opening COM port; check port number\n");
+    sprintf(portName, "\\\\.\\COM5"); // Change to the correct COM port
+    serial_port = CreateFile(portName, GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
+    if (serial_port == INVALID_HANDLE_VALUE)
+    {
+        fprintf(stderr, "Error opening port %s.\n", portName);
         return -1;
     }
-    DCB dcbSerialParams = {0};
-    dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
-    dcbSerialParams.BaudRate = CBR_9600;
-    dcbSerialParams.ByteSize = 8;
-    dcbSerialParams.StopBits = ONESTOPBIT;
-    dcbSerialParams.Parity = NOPARITY;
-    SetCommState(serial_port, &dcbSerialParams);
-    #else
-    serial_port = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);
-    if (serial_port < 0) {
+#else
+    sprintf(portName, "/dev/ttyUSB0"); // Change if needed
+    serial_port = open(portName, O_RDWR | O_NOCTTY);
+    if (serial_port < 0)
+    {
         perror("Error opening serial port");
         return -1;
     }
+
     struct termios tty;
     tcgetattr(serial_port, &tty);
     cfsetispeed(&tty, B9600);
@@ -235,39 +59,99 @@ int setup_serial_connection() {
     tty.c_cflag &= ~CSTOPB;
     tty.c_cflag &= ~CRTSCTS;
     tcsetattr(serial_port, TCSANOW, &tty);
-    #endif
+#endif
+
+    printf("Connected to Arduino on port: %s\n", portName);
     return 0;
 }
 
-int read_and_process_data(FILE *ser,clock_t startTime) {
+// Function to read and process sensor data from Serial
+int read_and_process_data(clock_t startTime)
+{
+    char line[256]; // Buffer for reading ASCII data
+    DWORD bytesRead = 0;
 
-    clock_t nowTime = clock();  
-    char line[256];
-    #ifdef _WIN32
-    DWORD bytes_read;
-    ReadFile(serial_port, line, sizeof(line) - 1, &bytes_read, NULL);
-    line[bytes_read] = '\0';
-    #else
-    int n = read(serial_port, line, sizeof(line) - 1);
-    if (n < 0) return -1;
-    line[n] = '\0';
-    #endif
-
-    int sensorValues[4];
-    int i = 0;
-    char *token = strtok(line, " ");
-    while (token != NULL && i < 4) {
-        sensorValues[i++] = atoi(token);
-        token = strtok(NULL, " ");
+#ifdef _WIN32
+    if (!ReadFile(serial_port, line, sizeof(line) - 1, &bytesRead, NULL))
+    {
+        return -1;
     }
-    x_vals[data_count] = (double)(nowTime - startTime) / CLOCKS_PER_SEC;
-    sensorValue1_data[data_count] = sensorValues[0];
-    sensorValue2_data[data_count] = sensorValues[1];
-    sensorValue3_data[data_count] = sensorValues[2];
-    sensorValue4_data[data_count] = sensorValues[3];
-    data_count++;
+#else
+    int bytesRead = read(serial_port, line, sizeof(line) - 1);
+    if (bytesRead <= 0)
+        return -1;
+#endif
 
-    fprintf(ser, "%.2f,%d,%d,%d,%d\n",
-           x_vals[data_count - 1], sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3]);
+    line[bytesRead] = '\0'; // Null-terminate for safety
+
+    // Tokenize and extract numbers
+    char *token = strtok(line, ",");
+    double sensorValues[NUM_CHANNELS] = {0}; // Default all to 0
+    int count = 0;
+
+    while (token && count < NUM_CHANNELS)
+    {
+        sensorValues[count] = atof(token);
+        token = strtok(NULL, ",");
+        count++;
+    }
+
+    double timestamp = (double)(clock() - startTime) / CLOCKS_PER_SEC;
+
+    // Write to CSV
+    fprintf(csvFile, "%.2f", timestamp);
+    for (int i = 0; i < NUM_CHANNELS; i++)
+    {
+        fprintf(csvFile, ",%.2f", sensorValues[i]);
+    }
+    fprintf(csvFile, "\n");
+
+    fflush(csvFile);
+    return 0;
+}
+
+int main()
+{
+    // Open CSV file
+    csvFile = fopen("Arduino_Data.csv", "w");
+    if (!csvFile)
+    {
+        fprintf(stderr, "Error opening log file.\n");
+        return 1;
+    }
+
+    // Write CSV header (always 8 columns)
+    fprintf(csvFile, "Timestamp");
+    for (int i = 1; i <= NUM_CHANNELS; i++)
+    {
+        fprintf(csvFile, ",Sensor%d", i);
+    }
+    fprintf(csvFile, "\n");
+
+    // Setup serial connection
+    if (setup_serial_connection() != 0)
+    {
+        fprintf(stderr, "Error setting up serial connection.\n");
+        fclose(csvFile);
+        return 1;
+    }
+
+    // Start data logging
+    clock_t startTime = clock();
+    while (1)
+    {
+        if (read_and_process_data(startTime) < 0)
+        {
+            fprintf(stderr, "Error reading serial data.\n");
+            break;
+        }
+#ifdef _WIN32
+        Sleep(100);
+#else
+        usleep(100000);
+#endif
+    }
+
+    fclose(csvFile);
     return 0;
 }
