@@ -1,0 +1,10 @@
+^N:\TJFRE\DOCUMENTS\REPOSITORIES\MYOWARE_MUSCLESENSOR\LEAPSDK\FILES\BUILD\CMAKEFILES\159278C56F8ED5626E0F2205A6840590\GENERATE.STAMP.RULE
+setlocal
+"N:\Program Files\CMake\bin\cmake.exe" -SN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files -BN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/leapc_example.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

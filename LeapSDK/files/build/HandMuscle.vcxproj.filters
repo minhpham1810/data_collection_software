@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\HandMuscle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\libExampleConnection.dir\$(Configuration)\ExampleConnection.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{5B6932D3-6A6E-3A65-BEBF-ABF2CBEA8400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F4B45E92-5AF4-3413-88B5-5490B4AD18BA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

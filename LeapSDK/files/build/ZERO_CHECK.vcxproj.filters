@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\159278c56f8ed5626e0f2205a6840590\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{B6F36737-A02F-3DBE-A77F-60C03B7A8735}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

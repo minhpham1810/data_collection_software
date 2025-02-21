@@ -1,0 +1,5 @@
+N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/leapc_example.dir
+N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/libExampleConnection.dir
+N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/HandMuscle.dir
+N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/ALL_BUILD.dir
+N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/ZERO_CHECK.dir

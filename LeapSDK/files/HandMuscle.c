@@ -179,7 +179,8 @@ int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp,clock_t startTime) {
 
     // Palm
     palm = hand.palm;
-    fprintf(fp,"|[%f,%f,%f]",hand.palm.position.x,palm.position.y,palm.position.z);
+    fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f,%f]]",hand.palm.position.x,palm.position.y,palm.position.z,
+                             palm.orientation.x,palm.orientation.y,palm.orientation.z,palm.orientation.w);
 
     // Fingers
     for (uint32_t i = 0; i < 5; i++) {
@@ -187,18 +188,19 @@ int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp,clock_t startTime) {
 
       // iterate through every bone
       for (uint32_t j = 0; j < 4; j++) {
-        fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f]]",
-                      finger.bones[j].prev_joint.x,finger.bones[j].next_joint.x,
-                      finger.bones[j].prev_joint.y,finger.bones[j].next_joint.y,
-                      finger.bones[j].prev_joint.z,finger.bones[j].next_joint.z
+        fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f],[%f,%f,%f,%f]]",
+                      finger.bones[j].prev_joint.x, finger.bones[j].prev_joint.y,finger.bones[j].prev_joint.z,
+                      finger.bones[j].next_joint.x,finger.bones[j].next_joint.y,finger.bones[j].next_joint.z,
+                      finger.bones[j].rotation.x,finger.bones[j].rotation.y,finger.bones[j].rotation.z,finger.bones[j].rotation.w        
                 );
       }
     }
 
     // Arm
     arm = hand.arm;
-    fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f]]",arm.prev_joint.x,arm.prev_joint.y,arm.prev_joint.z,
-                                        arm.next_joint.x,arm.next_joint.y,arm.next_joint.z);
+    fprintf(fp,"|[[%f,%f,%f],[%f,%f,%f],[%f,%f,%f,%f]]",arm.prev_joint.x,arm.prev_joint.y,arm.prev_joint.z,
+                                        arm.next_joint.x,arm.next_joint.y,arm.next_joint.z,
+                                        arm.rotation.x,arm.rotation.y,arm.rotation.z,arm.rotation.w);
   }
   fprintf(fp,"\n");
   return 0;

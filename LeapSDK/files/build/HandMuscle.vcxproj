@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1BACE51C-310B-38EC-9165-1CE3A9AD3239}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>HandMuscle</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">HandMuscle.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">HandMuscle</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">HandMuscle.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">HandMuscle</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">HandMuscle.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">HandMuscle</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">HandMuscle.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">HandMuscle</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\LeapC.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/Debug/HandMuscle.lib</ImportLibrary>
+      <ProgramDataBaseFile>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/Debug/HandMuscle.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\LeapC.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/Release/HandMuscle.lib</ImportLibrary>
+      <ProgramDataBaseFile>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/Release/HandMuscle.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\LeapC.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/MinSizeRel/HandMuscle.lib</ImportLibrary>
+      <ProgramDataBaseFile>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/MinSizeRel/HandMuscle.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\LeapC.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/RelWithDebInfo/HandMuscle.lib</ImportLibrary>
+      <ProgramDataBaseFile>N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/RelWithDebInfo/HandMuscle.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"N:\Program Files\CMake\bin\cmake.exe" -SN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files -BN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-file N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompilerABI.c;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GNU-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\HP-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\LCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XL-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\zOS-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeRCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeRCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeSystem.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-config.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-configVersion.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets-relwithdebinfo.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"N:\Program Files\CMake\bin\cmake.exe" -SN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files -BN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-file N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompilerABI.c;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GNU-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\HP-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\LCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XL-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\zOS-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeRCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeRCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeSystem.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-config.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-configVersion.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets-relwithdebinfo.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"N:\Program Files\CMake\bin\cmake.exe" -SN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files -BN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-file N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompilerABI.c;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GNU-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\HP-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\LCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XL-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\zOS-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeRCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeRCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeSystem.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-config.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-configVersion.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets-relwithdebinfo.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"N:\Program Files\CMake\bin\cmake.exe" -SN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files -BN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-file N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCCompilerABI.c;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\GNU-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\HP-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\LCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XL-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Compiler\zOS-C-DetermineCompiler.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CMakeRCLinkerInformation.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-C.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;N:\Program Files\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeRCCompiler.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\3.31.0-rc2\CMakeSystem.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-config.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\cmake\LeapSDK\leapsdk-configVersion.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets-relwithdebinfo.cmake;N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\lib\x64\cmake\LeapCTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\HandMuscle.c" />
+    <Object Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\libExampleConnection.dir\$(Configuration)\ExampleConnection.obj" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\ZERO_CHECK.vcxproj">
+      <Project>{EC3E11F9-D877-3630-B06A-E204A69F09D1}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\build\libExampleConnection.vcxproj">
+      <Project>{BF0045BC-D66D-3497-8904-46C127F3AED4}</Project>
+      <Name>libExampleConnection</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
