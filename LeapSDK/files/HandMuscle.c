@@ -40,6 +40,11 @@ FILE *ser;
 // Main function - creates threads and opens files
 int main(int argc, char** argv) {
 
+    char c;
+    printf("Press Enter to begin collecting data.\n 
+            Once data collection has begun, press Enter to stop collecting data.\n");
+    while ((c = getchar()) != '\n');  // Wait until Enter key is pressed
+
     // Open files
     fp = fopen("handData.csv", "w");
     ser = fopen("Arduino_Data.csv", "w");
