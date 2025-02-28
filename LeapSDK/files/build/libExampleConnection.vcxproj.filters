@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\ExampleConnection.c">
+    <ClCompile Include="C:\Users\tjfre\Documents\GitHub\MyoWare_MuscleSensor\LeapSDK\files\ExampleConnection.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="N:\tjfre\Documents\Repositories\MyoWare_MuscleSensor\LeapSDK\files\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\tjfre\Documents\GitHub\MyoWare_MuscleSensor\LeapSDK\files\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{F4B45E92-5AF4-3413-88B5-5490B4AD18BA}</UniqueIdentifier>
+      <UniqueIdentifier>{94C4C163-7E27-3C03-B5D2-66638B7BF0F7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

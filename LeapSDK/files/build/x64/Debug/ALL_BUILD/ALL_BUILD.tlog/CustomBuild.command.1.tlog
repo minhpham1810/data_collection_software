@@ -1,6 +1,6 @@
-^N:\TJFRE\DOCUMENTS\REPOSITORIES\MYOWARE_MUSCLESENSOR\LEAPSDK\FILES\CMAKELISTS.TXT
+^C:\USERS\TJFRE\DOCUMENTS\GITHUB\MYOWARE_MUSCLESENSOR\LEAPSDK\FILES\CMAKELISTS.TXT
 setlocal
-"N:\Program Files\CMake\bin\cmake.exe" -SN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files -BN:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-file N:/tjfre/Documents/Repositories/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tjfre/Documents/GitHub/MyoWare_MuscleSensor/LeapSDK/files -BC:/Users/tjfre/Documents/GitHub/MyoWare_MuscleSensor/LeapSDK/files/build --check-stamp-file C:/Users/tjfre/Documents/GitHub/MyoWare_MuscleSensor/LeapSDK/files/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

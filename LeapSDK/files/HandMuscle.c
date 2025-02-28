@@ -41,8 +41,8 @@ FILE *ser;
 int main(int argc, char** argv) {
 
     char c;
-    printf("Press Enter to begin collecting data.\n 
-            Once data collection has begun, press Enter to stop collecting data.\n");
+    printf("Press Enter to begin collecting data.\n"); 
+            // Once data collection has begun, press Enter to stop collecting data.\n");
     while ((c = getchar()) != '\n');  // Wait until Enter key is pressed
 
     // Open files
@@ -260,10 +260,13 @@ int read_and_process_data(FILE *ser,clock_t startTime) {
     line[n] = '\0';
     #endif
 
-    int sensorValues[4];
+    int activeSensors[9];
+
+
+    int sensorValues[9];
     int i = 0;
     char *token = strtok(line, " ");
-    while (token != NULL && i < 4) {
+    while (token != NULL && i < 9) {
         sensorValues[i++] = atoi(token);
         token = strtok(NULL, " ");
     }
@@ -272,9 +275,16 @@ int read_and_process_data(FILE *ser,clock_t startTime) {
     sensorValue2_data[data_count] = sensorValues[1];
     sensorValue3_data[data_count] = sensorValues[2];
     sensorValue4_data[data_count] = sensorValues[3];
+    sensorValue4_data[data_count] = sensorValues[4];
+    sensorValue4_data[data_count] = sensorValues[5];
+    sensorValue4_data[data_count] = sensorValues[6];
+    sensorValue4_data[data_count] = sensorValues[7];
+    sensorValue4_data[data_count] = sensorValues[8];
+    
     data_count++;
 
-    fprintf(ser, "%.2f,%d,%d,%d,%d\n",
-           x_vals[data_count - 1], sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3]);
+    for (i = 0; i < activeSensors; i++)
+    fprintf(ser, "%.2f,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+           x_vals[data_count - 1], sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3], sensorValues[4], sensorValues[5], sensorValues[6], sensorValues[7], sensorValues[8]);
     return 0;
 }
