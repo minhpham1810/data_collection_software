@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 
+
 #ifdef _WIN32
 #include <windows.h>
 DWORD WINAPI handle_ultraleap_data(LPVOID arg);
@@ -18,6 +19,7 @@ void* handle_arduino_data(void* arg);
 
 #include "LeapC.h"
 #include "ExampleConnection.h"
+#include "cJSON.h"
 
 //Global variables for Ultraleap
 LEAP_CLOCK_REBASER clockSynchronizer;
@@ -126,7 +128,7 @@ void* handle_ultraleap_data(void* arg) {
                 //Print Hand Data if we have it
                 if (interpolatedFrame->nHands > 0) {
                     exportHand(interpolatedFrame, fpcsv, startTime);
-                    createJSON(interpolatedFrame,fp,startTime);
+                    append_frame_to_json(interpolatedFrame,fp,startTime);
                 }
                 free(interpolatedFrame);
                 
@@ -144,84 +146,109 @@ void* handle_ultraleap_data(void* arg) {
     return 0;
 }
 
-// Function to write a LEAP_VECTOR JSON object
-void write_vector(FILE *file, float x, float y, float z) {
-    fprintf(file, "{\"x\":%.2f,\"y\":%.2f,\"z\":%.2f}", x, y, z);
+// Function to get the current timestamp
+long long get_timestamp(clock_t startTime) {
+    clock_t nowTime = clock(); 
+    return (double)(nowTime - startTime) / CLOCKS_PER_SEC;
 }
 
-// Function to write a LEAP_QUATERNION JSON object
-void write_quaternion(FILE *file, float x, float y, float z, float w) {
-    fprintf(file, "{\"x\":%.2f,\"y\":%.2f,\"z\":%.2f,\"w\":%.2f}", x, y, z, w);
+// Function to convert a LEAP_VECTOR to cJSON
+cJSON* vector_to_json(LEAP_VECTOR vec) {
+    cJSON* json_vec = cJSON_CreateObject();
+    cJSON_AddNumberToObject(json_vec, "x", vec.x);
+    cJSON_AddNumberToObject(json_vec, "y", vec.y);
+    cJSON_AddNumberToObject(json_vec, "z", vec.z);
+    return json_vec;
 }
 
-// Function to write a LEAP_BONE JSON object
-void write_bone(FILE *file, LEAP_BONE *bone) {
-    fprintf(file, "{\"prev_joint\":");
-    write_vector(file, px, py, pz);
-    fprintf(file, ",\"next_joint\":");
-    write_vector(file, nx, ny, nz);
-    fprintf(file, ",\"width\":%.2f,\"rotation\":", width);
-    write_quaternion(file, qx, qy, qz, qw);
-    fprintf(file, "}");
+// Function to convert a LEAP_QUATERNION to cJSON
+cJSON* quaternion_to_json(LEAP_QUATERNION quat) {
+    cJSON* json_quat = cJSON_CreateObject();
+    cJSON_AddNumberToObject(json_quat, "x", quat.x);
+    cJSON_AddNumberToObject(json_quat, "y", quat.y);
+    cJSON_AddNumberToObject(json_quat, "z", quat.z);
+    cJSON_AddNumberToObject(json_quat, "w", quat.w);
+    return json_quat;
 }
 
-// Function to write a LEAP_DIGIT JSON object
-void write_digit(FILE *file, int finger_id, float width) {
-    fprintf(file, "{\"finger_id\":%d,\"metacarpal\":", finger_id);
-    write_bone(file, 0,0,0,1,1,1, width, 0,0,0,1);
-    fprintf(file, ",\"proximal\":");
-    write_bone(file, 1,1,1,2,2,2, width, 0,0,0,1);
-    fprintf(file, ",\"intermediate\":");
-    write_bone(file, 2,2,2,3,3,3, width, 0,0,0,1);
-    fprintf(file, ",\"distal\":");
-    write_bone(file, 3,3,3,4,4,4, width, 0,0,0,1);
-    fprintf(file, ",\"is_extended\":1}");
+// Function to convert a LEAP_BONE to cJSON
+cJSON* bone_to_json(LEAP_BONE bone) {
+    cJSON* json_bone = cJSON_CreateObject();
+    cJSON_AddItemToObject(json_bone, "prev_joint", vector_to_json(bone.prev_joint));
+    cJSON_AddItemToObject(json_bone, "next_joint", vector_to_json(bone.next_joint));
+    cJSON_AddNumberToObject(json_bone, "width", bone.width);
+    cJSON_AddItemToObject(json_bone, "rotation", quaternion_to_json(bone.rotation));
+    return json_bone;
 }
 
-// Function to write a LEAP_HAND JSON object
-void write_hand(FILE *file, int id, int type) {
-    fprintf(file, "{\"id\":%d,\"type\":%d,\"palm\":", id, type);
-    write_vector(file, 10.0, 10.0, 10.0);
-    fprintf(file, ",\"digits\":[");
-    for (int i = 0; i < 5; i++) {
-        if (i > 0) fprintf(file, ",");
-        write_digit(file, i, 10.0 - i * 0.5);
+// Function to convert a LEAP_HAND to cJSON
+cJSON* hand_to_json(LEAP_HAND hand) {
+    cJSON* json_hand = cJSON_CreateObject();
+    cJSON_AddNumberToObject(json_hand, "id", hand.id);
+    cJSON_AddNumberToObject(json_hand, "type", hand.type);
+    cJSON_AddNumberToObject(json_hand, "confidence", hand.confidence);
+    cJSON_AddNumberToObject(json_hand, "visible_time", hand.visible_time);
+    cJSON_AddItemToObject(json_hand, "palm_position", vector_to_json(hand.palm.position));
+    cJSON_AddItemToObject(json_hand, "palm_velocity", vector_to_json(hand.palm.velocity));
+    cJSON_AddItemToObject(json_hand, "palm_normal", vector_to_json(hand.palm.normal));
+    cJSON_AddItemToObject(json_hand, "palm_orientation", quaternion_to_json(hand.palm.orientation));
+    cJSON_AddNumberToObject(json_hand, "grab_strength", hand.grab_strength);
+    cJSON_AddNumberToObject(json_hand, "pinch_strength", hand.pinch_strength);
+    cJSON_AddItemToObject(json_hand, "arm", bone_to_json(hand.arm));
+    return json_hand;
+}
+
+// Function to append a frame to the JSON file
+void append_frame_to_json(LEAP_TRACKING_EVENT* frame, FILE *fp, clock_t startTime) {
+    cJSON* json_data;
+    fseek(fp, 0, SEEK_SET);  // Ensure we're at the start of the file.
+    
+    // Read the current content of the file
+    char buffer[1024];
+    fread(buffer, sizeof(buffer), 1, fp);
+    json_data = cJSON_Parse(buffer);
+    
+    // If no data or invalid, initialize an empty structure
+    if (!json_data) {
+        json_data = cJSON_CreateObject();
+        cJSON_AddArrayToObject(json_data, "frames");
     }
-    fprintf(file, "]}");
-}
 
-void createJSON(FILE *fp) {
-    fprintf(fp, "[{");
-    fprintf(fp, "\"time\": ,\"hands\":[");
-    write_hand(fp, 1, 0);
-    fprintf(fp, ",");
-    write_hand(fp, 2, 1);
-    fprintf(fp, "]}]");
-}
+    // Prepare the frames array and new frame object
+    cJSON* json_frames = cJSON_GetObjectItem(json_data, "frames");
+    cJSON* json_frame = cJSON_CreateObject();
+    cJSON* json_hands = cJSON_CreateArray();
 
+    // Calculate timestamp from start time
+    long long timestamp = get_timestamp(startTime);
 
-// Thread function for handling Arduino data
-#ifdef _WIN32
-DWORD WINAPI handle_arduino_data(LPVOID arg) {
-#else
-void* handle_arduino_data(void* arg) {
-#endif
-    //start clock
-    clock_t startTime = clock();
+    // Set the timestamp for this frame
+    cJSON_AddNumberToObject(json_frame, "timestamp", timestamp);
 
-    for (;;) {
-        read_and_process_data(ser,startTime);
-// #ifdef _WIN32
-//         Sleep(100);
-// #else
-//         usleep(100000);
-// #endif
+    // Loop over the hands in the frame and add them to the hands array
+    for (int i = 0; i < frame->nHands; i++) {
+        LEAP_HAND hand = frame->pHands[i];
+        if (hand.id != 0) {
+            cJSON_AddItemToArray(json_hands, hand_to_json(hand));
+        }
     }
-#ifdef _WIN32
-    return 0;
-#else
-    return NULL;
-#endif
+
+    // Add the hands data to the frame
+    cJSON_AddItemToObject(json_frame, "hands", json_hands);
+
+    // Add the frame to the frames array
+    cJSON_AddItemToArray(json_frames, json_frame);
+
+    // Go to the beginning of the file to overwrite it
+    fseek(fp, 0, SEEK_SET);
+
+    // Print the JSON structure into the file
+    char* json_string = cJSON_PrintPreallocated(json_data, 1024 * 1024, 1);
+    fprintf(fp, "%s", json_string);
+    fclose(fp);
+
+    // Clean up
+    cJSON_Delete(json_data);
 }
 
 // Export hand data to CSV
@@ -268,6 +295,30 @@ int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp,clock_t startTime) {
   }
   fprintf(fp,"\n");
   return 0;
+}
+
+// Thread function for handling Arduino data
+#ifdef _WIN32
+DWORD WINAPI handle_arduino_data(LPVOID arg) {
+#else
+void* handle_arduino_data(void* arg) {
+#endif
+    //start clock
+    clock_t startTime = clock();
+
+    for (;;) {
+        read_and_process_data(ser,startTime);
+// #ifdef _WIN32
+//         Sleep(100);
+// #else
+//         usleep(100000);
+// #endif
+    }
+#ifdef _WIN32
+    return 0;
+#else
+    return NULL;
+#endif
 }
 
 int setup_serial_connection() {
