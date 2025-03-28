@@ -36,6 +36,7 @@ int serial_port;
 // File pointers for data storage
 FILE *fp;
 FILE *ser;
+FILE *fpcsv;
 
 // Main function - creates threads and opens files
 int main(int argc, char** argv) {
@@ -46,9 +47,10 @@ int main(int argc, char** argv) {
     while ((c = getchar()) != '\n');  // Wait until Enter key is pressed
 
     // Open files
-    fp = fopen("handData.csv", "w");
+    fpcsv = fopen("handData.csv", "w");
+    fp = fopen("handData.json", "w");
     ser = fopen("Arduino_Data.csv", "w");
-    if (!fp || !ser) {
+    if (!fp || !ser || !fpcsv) {
         fprintf(stderr, "Error opening data files.\n");
         return 1;
     }
@@ -123,7 +125,8 @@ void* handle_ultraleap_data(void* arg) {
 
                 //Print Hand Data if we have it
                 if (interpolatedFrame->nHands > 0) {
-                    exportHand(interpolatedFrame, fp, startTime);
+                    exportHand(interpolatedFrame, fpcsv, startTime);
+                    createJSON(interpolatedFrame,fp,startTime);
                 }
                 free(interpolatedFrame);
                 
@@ -140,6 +143,62 @@ void* handle_ultraleap_data(void* arg) {
     fclose(fp);
     return 0;
 }
+
+// Function to write a LEAP_VECTOR JSON object
+void write_vector(FILE *file, float x, float y, float z) {
+    fprintf(file, "{\"x\":%.2f,\"y\":%.2f,\"z\":%.2f}", x, y, z);
+}
+
+// Function to write a LEAP_QUATERNION JSON object
+void write_quaternion(FILE *file, float x, float y, float z, float w) {
+    fprintf(file, "{\"x\":%.2f,\"y\":%.2f,\"z\":%.2f,\"w\":%.2f}", x, y, z, w);
+}
+
+// Function to write a LEAP_BONE JSON object
+void write_bone(FILE *file, LEAP_BONE *bone) {
+    fprintf(file, "{\"prev_joint\":");
+    write_vector(file, px, py, pz);
+    fprintf(file, ",\"next_joint\":");
+    write_vector(file, nx, ny, nz);
+    fprintf(file, ",\"width\":%.2f,\"rotation\":", width);
+    write_quaternion(file, qx, qy, qz, qw);
+    fprintf(file, "}");
+}
+
+// Function to write a LEAP_DIGIT JSON object
+void write_digit(FILE *file, int finger_id, float width) {
+    fprintf(file, "{\"finger_id\":%d,\"metacarpal\":", finger_id);
+    write_bone(file, 0,0,0,1,1,1, width, 0,0,0,1);
+    fprintf(file, ",\"proximal\":");
+    write_bone(file, 1,1,1,2,2,2, width, 0,0,0,1);
+    fprintf(file, ",\"intermediate\":");
+    write_bone(file, 2,2,2,3,3,3, width, 0,0,0,1);
+    fprintf(file, ",\"distal\":");
+    write_bone(file, 3,3,3,4,4,4, width, 0,0,0,1);
+    fprintf(file, ",\"is_extended\":1}");
+}
+
+// Function to write a LEAP_HAND JSON object
+void write_hand(FILE *file, int id, int type) {
+    fprintf(file, "{\"id\":%d,\"type\":%d,\"palm\":", id, type);
+    write_vector(file, 10.0, 10.0, 10.0);
+    fprintf(file, ",\"digits\":[");
+    for (int i = 0; i < 5; i++) {
+        if (i > 0) fprintf(file, ",");
+        write_digit(file, i, 10.0 - i * 0.5);
+    }
+    fprintf(file, "]}");
+}
+
+void createJSON(FILE *fp) {
+    fprintf(fp, "[{");
+    fprintf(fp, "\"time\": ,\"hands\":[");
+    write_hand(fp, 1, 0);
+    fprintf(fp, ",");
+    write_hand(fp, 2, 1);
+    fprintf(fp, "]}]");
+}
+
 
 // Thread function for handling Arduino data
 #ifdef _WIN32
