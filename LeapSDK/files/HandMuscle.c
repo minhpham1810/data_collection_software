@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 
+
 #ifdef _WIN32
 #include <windows.h>
 DWORD WINAPI handle_ultraleap_data(LPVOID arg);
@@ -18,6 +19,7 @@ void* handle_arduino_data(void* arg);
 
 #include "LeapC.h"
 #include "ExampleConnection.h"
+#include "cJSON.h"
 
 //Global variables for Ultraleap
 LEAP_CLOCK_REBASER clockSynchronizer;
@@ -209,6 +211,30 @@ int exportHand(LEAP_TRACKING_EVENT* frame,FILE *fp,clock_t startTime) {
   }
   fprintf(fp,"\n");
   return 0;
+}
+
+// Thread function for handling Arduino data
+#ifdef _WIN32
+DWORD WINAPI handle_arduino_data(LPVOID arg) {
+#else
+void* handle_arduino_data(void* arg) {
+#endif
+    //start clock
+    clock_t startTime = clock();
+
+    for (;;) {
+        read_and_process_data(ser,startTime);
+// #ifdef _WIN32
+//         Sleep(100);
+// #else
+//         usleep(100000);
+// #endif
+    }
+#ifdef _WIN32
+    return 0;
+#else
+    return NULL;
+#endif
 }
 
 int setup_serial_connection() {

@@ -20,15 +20,24 @@ tBase = (tMax - tMin) / kMax
 baseSet = np.array([tBase * (k + 1) for k in range(kMax)])
 
 # Expectation step: Compute sum of h(t - tk)
-def x(t):
-    
+def expectX(t,tSet,handData):
+    '''
+    Computes expected x(t) for one value of t in tSet
+
+    t - tk will not always be a value in tSet 
+    Need to match t - tk with the correct value in hIn
+    '''
+    xT = 0
+    for tk in tSet:
+        t - tk
         
-    return np.array([np.sum(hIn[t - tk]) for tk in tIn])
+        
+    return np.array([np.sum(hIn[t - tk]) for tk in tSet])
 
 E = np.array([])
 for t in baseSet:
-    print(x(t))
-    E = np.append(E,x(t))
+    print(expectX(t,baseSet,hIn))
+    E = np.append(E,expectX(t,baseSet,hIn))
 print("Expectation values:", E)
 
 # Maximization
