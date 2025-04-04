@@ -200,6 +200,8 @@ cJSON* hand_to_json(LEAP_HAND hand) {
 
 // Function to append a frame to the JSON file
 void append_frame_to_json(LEAP_TRACKING_EVENT* frame, FILE *fp, clock_t startTime) {
+    if (frame->nHands == 0) return;
+
     cJSON* json_data;
     fseek(fp, 0, SEEK_SET);  // Ensure we're at the start of the file.
     
